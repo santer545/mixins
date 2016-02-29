@@ -1,0 +1,196 @@
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+.btn {
+	display: inline-block;
+	margin-bottom: 0; // For input.btn
+	font-weight: $btn-font-weight;
+	text-align: center;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+	border: 1px solid transparent;
+	white-space: nowrap;
+	@include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $btn-border-radius-base);
+
+
+	&:hover,
+	&:focus,
+	&.focus {
+		color: $btn-default-color;
+		text-decoration: none;
+	}
+}
+
+
+@mixin button-variant($color, $background, $border) {
+	color: $color;
+	background-color: $background;
+	border-color: $border;
+
+	&:focus,
+	&.focus {
+		color: $color;
+		background-color: darken($background, 10%);
+		border-color: darken($border, 25%);
+	}
+	&:hover {
+		color: $color;
+		background-color: darken($background, 10%);
+		border-color: darken($border, 12%);
+	}
+	&:active,
+	&.active,
+	.open > &.dropdown-toggle {
+		color: $color;
+		background-color: darken($background, 10%);
+		border-color: darken($border, 12%);
+
+		&:hover,
+		&:focus,
+		&.focus {
+			color: $color;
+			background-color: darken($background, 17%);
+			border-color: darken($border, 25%);
+		}
+	}
+	&:active,
+	&.active,
+	.open > &.dropdown-toggle {
+		background-image: none;
+	}
+	&.disabled,
+	&[disabled],
+	fieldset[disabled] & {
+		&,
+		&:hover,
+		&:focus,
+		&.focus,
+		&:active,
+		&.active {
+			background-color: $background;
+			border-color: $border;
+		}
+	}
+
+	.badge {
+		color: $background;
+		background-color: $color;
+	}
+}
+
+// Button sizes
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+	padding: $padding-vertical $padding-horizontal;
+	font-size: $font-size;
+	line-height: $line-height;
+	border-radius: $border-radius;
+}
+
+
+
+// Clearfix
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+//
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+
+@mixin clearfix() {
+	&:before,
+	&:after {
+		content: " "; // 1
+		display: table; // 2
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+@mixin placeholder {
+	&::-webkit-input-placeholder {@content}
+	&:-moz-placeholder           {@content}
+	&::-moz-placeholder          {@content}
+	&:-ms-input-placeholder      {@content}
+}
+
+
+// Media Queries
+
+// up
+@mixin xs-up(){
+	@media (min-width: $screen-xs-min){
+		@content;
+	}
+}
+@mixin sm-up(){
+	@media (min-width: $screen-sm-min){
+		@content;
+	}
+}
+@mixin md-up(){
+	@media (min-width: $screen-md-min){
+		@content;
+	}
+}
+@mixin lg-up(){
+	@media (min-width: $screen-lg-min){
+		@content;
+	}
+}
+
+@mixin lg-up(){
+	@media (min-width: $screen-lg-x-min){
+		@content;
+	}
+}
+
+// down
+@mixin xs-mobile-down(){
+	@media (max-width: $screen-xs){
+		@content;
+	}
+}
+
+@mixin xs-down(){
+	@media (max-width: $screen-xs-max){
+		@content;
+	}
+}
+@mixin sm-down(){
+	@media (max-width: $screen-sm-max){
+		@content;
+	}
+}
+
+@mixin sm-tablet-down(){
+	@media (max-width: $scrin-tablet){
+		@content;
+	}
+}
+
+@mixin md-down(){
+	@media (max-width: $screen-md-max){
+		@content;
+	}
+}
+
+@mixin lg-down(){
+	@media (max-width: $screen-lg-max){
+		@content;
+	}
+}
+
+@mixin lg-xx-down(){
+	@media (max-width: $screen-lg-xx-max){
+		@content;
+	}
+}
